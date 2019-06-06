@@ -1,0 +1,68 @@
+\chapter{Matchings}
+Every year universities are accepting students. Imagine that we want to develpe
+an optimal procedure to do this. First, we formalize the
+problem.
+\begin{itemize}
+  \item Each student has a list of universities she likes, and
+    moreover, she has an ordering of preferences of the universities.
+  \item Additionally, each university knows the students is would
+    like to accept, and has an ordering of preferences of the students. In
+    addition all the universities know how many students they wish to accept.
+\end{itemize}
+It is easy to see that we may define several ways to define what is the optimal
+way to allocate students to universities. In the end of the section we discuss,
+probably, the most famous one.
+
+Now let us simplify the problem and assume that each university accept only one
+student, that for each student all the universities he likes are equally good,
+and that for each univeristy all the students the would like to accept are
+equally good. Note that in this case the problem can be decribed using a graph
+where vertices are students and universities, and there is an edge between a
+univeristy $U$ and a student $S$ iff $S$ likes $U$ and $U$ would like to accept
+$S$. We need to pair some universities and some students so that there is an
+edge within the pairs.
+\begin{definition}
+  Let $G = (V, E)$ be a graph. We say that $M \subseteq E$ is a matching in $G$
+  iff in the graph $G[M]$ degrees of all the vertices are at most $1$, i.e.,
+  all the edges in $M$ have different vertices. We say that $M$ is perfect
+  iff every vertex in $G[M]$ has degree equal to $1$.
+
+  We also say that a matching $M$ covers a set $U \subseteq V$ iff all the
+  vertices from $U$ have degree $1$ in $G[M]$.
+\end{definition}
+Using this definition we may notice that the problem of accepting stundets is a
+problem of finding a matching.
+
+\section{Bipartite Graphs}
+In the example we discussed the graph is bipartite. So let us first study
+matchings in bipartite graphs.
+
+\begin{definition}
+  Let $G = (A \cup B, E)$ be a bipartite graph with parts $A$ and $B$. We
+  say that a matching $M$ is a perfect matching of $A$ into $B$ if
+  degrees of all the vertices from $A$ have degree $1$ in $G[M]$.
+\end{definition}
+
+The question we are intrested is whether exists a perfect maching of $A$ into
+$B$ for a bipartite graph $G$ with parts $A$ and $B$. A famous Hall's marriage
+theorem gives a way to answer this question.
+\begin{theorem}[Hall's marriage theorem]
+  Let $G = (A \cup B, E)$ be a bipartite graph with parts $A$ and $B$,
+  and
+  \[
+    N(X) = \set[{(u, v) \in E \text{ for some } u \in X}]{v \in B}.
+  \]
+
+  Then $G$ has a perfect matching of $A$ into $B$ iff for any $X \subseteq A$,
+  $|N(X)| \ge |X|$.
+\end{theorem}
+
+
+\section{Unrestricted Graphs}
+
+\begin{theorem}[Tutte's theorem]
+  Let $G = (V, E)$ be a grpah, and $c_0(H)$ be the number of components of a
+  graph $H$ that have an odd number of vertices.
+  The graph $G$ has a perfect matching iff, for all subsets
+  $S \subseteq V$, the inequality $c_0(G - S) \le |S|$ holds.
+\end{theorem}
