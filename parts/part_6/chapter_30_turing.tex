@@ -1,0 +1,78 @@
+\chapter{Turing Machines}
+Before this chapter our reasoning about algorithms used our intuition about
+computers. This allowed us to put some details of algorithms under the rug.
+
+Unfortunately, sometimes such informal reasoning is not enough. For example, it
+is not enough if we would like to prove that some problem is not solvable using
+algorithms but the problem itself has nothing in common with algorithms. In this
+chapter we consider a typical example of such a problem, the word problem in
+semigroups.
+
+\subsection{The definition}
+A Truing machine operates on an infinite, in both dirrections, memory
+tape divided into discrete ``cells''. The machine positions its \emph{``head''}
+over a cell and ``reads'' the symbol there. Then, as per the symbol and the
+state of the machine,
+the machine
+\begin{itemize}
+  \item writes a symbol (e.g., a digit or a letter from a finite alphabet) in
+    the cell, then
+  \item either moves the tape one cell left or right, then,
+  \item as determined by the observed symbol and the machine's place in the
+    table, either proceeds to a subsequent instruction or halts the
+    computation.\footnote{%
+      It should be mentioned that this definition is very complicated and,
+      probably, does not look similar to any programming language you know;
+      however, Brainfuck, an esoteric programming language, is essentially the
+      language describing Turing machines.
+    }
+\end{itemize}
+More formally, Turing machines can be defined as follows.
+\begin{definition}
+  A \emph{Turing machine} $M$ is a tuple $(A, a_0, S, s_0, \delta, F)$ such
+  that 
+  \begin{itemize}
+    \item $A$ is a finite set; the set is called \emph{alphabet} and its
+      elements are called \emph{characters}.
+    \item $a_0 \in A$ is called \emph{the blank symbol} or \emph{space}.
+    \item $S$ is a finite set whose elements are called \emph{states}.
+    \item $s_0 \in S$ is called \emph{the initial state}.
+    \item $\delta : S \times A \to S \times A \times \set{-1, 0, 1}$ is called
+      \emph{the transition table} of the machine. ($-1$ means that the head
+      should move to the left, $0$ means that it should not move, and $1$ means
+      that it should move to the right.)
+    \item $F \subseteq S$ is the set of \emph{terminal states}.
+  \end{itemize}
+\end{definition}
+
+At each step, the sitation is described by the tape content (a function from
+$\Z$ to $A$), the current head position (an integer), and the current state of
+the machine (an element of $S$). A configuration is transformed into the next
+one by natural rules: we look up the current state and tape character in the
+table, read the corresponding entry, and change the state of the machine and the
+character on the tape to new ones; then we move the head to the left, to the
+right, or leave it in place (by adding the "shift" to the "head position"). If
+the new state turns out to be terminal, the process terminates. Otherwise,
+everything is repeated again.
+
+It remains to specify how the machine processes its input and what is its
+output. We will assume that the tape alphabet, in addition to the blank symbol,
+includes the characters 0 and 1 (and, possibly, some other characters). The
+input and output of the machine are finite zero-one sequences (bit strings).
+Initially, the input string is written on the blank tape, and the head is placed
+on its first character. Then the machine is put into the initial state and
+launched. If the computation terminates, then the output is the 0-1-string
+starting from the head position and delimited by any character distinct from $0$
+and $1$.
+
+It is clear that a Turing machine defines a partial function on the set 
+$\set{0, 1}^*$; each such function is called \emph{computable by a Turing
+machine}.
+
+Let us show that the function $D : \set{0, 1}^* \to \set{0, 1}^*$ such that
+$D(x) = xx$ is computable by a Turing machine.
+
+\begin{exercise}
+  Show that the inversion function $I$ that rewrites a given string backwards
+  (e.g., $I(001) = 100$) is computable by a Turing machine.
+\end{exercise}
